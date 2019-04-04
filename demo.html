@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demo</title>
+<link href="css/singlePageTemplate.css" rel="stylesheet" type="text/css">
+<!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.-->
+<script>var __adobewebfontsappname__="dreamweaver"</script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.14&key=0c3296ca2d442e413396da735d21c36f"></script> 
+<script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body style="height:100%">
+<!-- Main Container -->
+<div class="container"> 
+  <!-- Navigation -->
+  <header> <a href="">
+    <h4 class="logo">DEMO</h4>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#hero">HOME</a></li>
+        <li><a href="#about">ABOUT</a></li>
+        <li> <a href="#contact">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Hero Section -->
+  <div class="hero">
+	<div class="mapcontainer" id="mapcontainer">
+		<script>
+			var map = new AMap.Map("mapcontainer",{
+				zoom:11, //初始化地图层级
+				center: [116.397428, 39.90923],//初始化地图中心点
+				mapStyle: 'amap://styles/whitesmoke',
+			});
+			
+			var circleMarker_0 = new AMap.CircleMarker({
+				center: [116.433322, 39.900255],
+				radius: 150, //半径
+				fillColor: '#1791fc',
+				zIndex: 50,
+				strokeOpacity: 0,
+				fillOpacity: 0.3,
+				});
+			var circleMarker_1 = new AMap.CircleMarker({
+				center: [116.433322, 39.900255],
+				radius: 75, //半径
+				fillColor: '#1791fc',
+				zIndex: 75,
+				strokeOpacity: 0,
+				fillOpacity: 0.6,
+				});
+			var circleMarker_2 = new AMap.CircleMarker({
+				center: [116.433322, 39.900255],
+				radius: 25, //半径
+				fillColor: '#1791fc',
+				zIndex: 75,
+				strokeOpacity: 0,
+				fillOpacity: 0.8,
+				});
+
+				map.add(circleMarker_0);
+				map.add(circleMarker_1);
+				map.add(circleMarker_2);
+		</script>
+	  </div>
+  </div>
+  <!-- About Section -->
+  <!-- Stats Gallery Section -->
+  <!-- Parallax Section -->
+  <!-- More Info Section -->  <!-- Footer Section -->
+  <!-- Copyrights Section -->
+  <div class="copyright">&copy;2019 - <strong>zzzz</strong></div>
+</div>
+<!-- Main Container Ends -->
+</body>
+</html>
