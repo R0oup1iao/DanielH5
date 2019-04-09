@@ -1,0 +1,290 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />	
+<script src='eb22485_tran.js'></script>
+<title>demo</title>
+<style> 
+	.div-a{ float:left;width:66%;height:900px;border:1px solid #F00} 
+	.div-b{ float:left;width:33%;height:900px;border:1px solid #000} 
+	.div-c{ float:top;width:100%;height:25%;border:1px solid #000} 
+</style> 
+<style type="text/css">
+<!--
+@import url("style.css");
+-->
+</style>
+</head>
+<body>
+	<div id="container"class="div-a">
+	<script src="https://webapi.amap.com/maps?v=1.4.13&key=0c3296ca2d442e413396da735d21c36f&plugin=AMap.LineSearch"></script>
+	
+	<script>
+    var map = new AMap.Map('container', {
+        resizeEnable: true, //是否监控地图容器尺寸变化
+        zoom:11, //初始化地图层级
+        center: [116.397428, 39.90923],//初始化地图中心点
+     	mapStyle: 'amap://styles/whitesmoke',
+    });
+    var linesearch;
+    /*公交线路查询*/
+    var HotBuslines_cdb=new Array('专24','快速直达专线133','快速直达专线114','41','专60','546','487','434','139','95')
+    var HotBuslines_eb=new Array('Y41','专22','特16','专75','特12外','484','专44','425','10','专21')
+    	
+    function lineSearch(HotBuslines,color) {
+
+        //var busLineName = document.getElementById('BusLineName').value;
+        if(!HotBuslines) return;
+        //实例化公交线路查询类，只取回一条路线
+        if(!linesearch){
+            linesearch = new AMap.LineSearch({
+                pageIndex: 1,
+                city: '北京',
+                pageSize: 1,
+                extensions: 'all'
+            });
+        }
+        //搜索相关公交线路
+	
+	for  (var i=0; i<11; i++){
+        linesearch.search(HotBuslines[i], function(status, result) {
+            if (status === 'complete' && result.info === 'OK') {
+                lineSearch_Callback_1(result,color);
+            } else {
+                console.log(result+i);
+            }
+        });
+        }
+    }
+    /*公交路线查询服务返回数据解析概况*/
+    function lineSearch_Callback(data) {
+        var lineArr = data.lineInfo;
+        var lineNum = data.lineInfo.length;
+	
+        if (lineNum == 0) {
+        } else {
+            for (var i = 0; i < lineNum; i++) {
+                var pathArr = lineArr[i].path;
+                var stops = lineArr[i].via_stops;
+                var startPot = stops[0].location;
+                var endPot = stops[stops.length - 1].location;
+		var linename = lineArr[i].name;
+                if (i == 0) //作为示例，只绘制一条线路
+                drawbusLine(stops, pathArr,linename);
+            
+            }
+        }
+    }
+    function lineSearch_Callback_1(data,color) {
+        var lineArr = data.lineInfo;
+        var lineNum = data.lineInfo.length;
+        if (lineNum == 0) {
+        } else {
+            for (var i = 0; i < lineNum; i++) {
+                var pathArr = lineArr[i].path;
+                var stops = lineArr[i].via_stops;
+                var startPot = stops[0].location;
+                var endPot = stops[stops.length - 1].location;
+                if (i == 0) //作为示例，只绘制一条线路
+                drawbusLine_1(stops, pathArr,color);
+            
+            }
+        }
+    }
+    /*绘制路线*/
+    function drawbusLine(stops, BusArr,linename) {
+        //绘制起点，终点
+        for (var i = 0; i < stops.length; i++) { 
+        new AMap.Marker({
+            map: map,
+            position: stops[i].location, //基点位置
+            icon:new AMap.Icon({
+                       image:'http://webapi.amap.com/theme/v1.3/markers/b/mark_r.png',
+                       size:new AMap.Size(12,12),
+                       imageSize:new AMap.Size(12,12)
+                    }),           
+	    offset: new AMap.Pixel(-6, -12),        
+	    zIndex: 10
+        });
+	}
+        //绘制乘车的路线
+        busPolyline = new AMap.Polyline({
+            map: map,
+            path: BusArr,
+            
+            strokeColor: "red",//线颜色
+            strokeOpacity: 0.8,//线透明度
+            isOutline:true,
+            outlineColor:'white',
+            strokeWeight: 8//线宽
+        });
+        map.setFitView();
+    }
+    function drawbusLine_1(stops, BusArr,color) {
+        //绘制起点，终点
+        var pix;
+        if(color==='#07F') pix='http://webapi.amap.com/theme/v1.3/markers/b/mark_b.png';
+        else pix = 'http://webapi.amap.com/theme/v1.3/markers/b/mark_r.png'
+        for (var i = 0; i < stops.length; i++) { 
+        new AMap.Marker({
+            map: map,
+            position: stops[i].location, //基点位置
+            icon:new AMap.Icon({
+
+                       image:pix,
+                       size:new AMap.Size(8,8),
+                       imageSize:new AMap.Size(8,8)
+                    }),           
+	    offset: new AMap.Pixel(-4, -8),        
+	    zIndex: 10
+        });
+	}
+        //绘制乘车的路线
+        busPolyline = new AMap.Polyline({
+            map: map,
+            path: BusArr,
+            
+            strokeColor: color,//线颜色
+            strokeOpacity: 0.7,//线透明度
+            isOutline:true,
+            outlineColor:'white',
+            strokeWeight: 4//线宽
+        });
+        map.setFitView();
+    }
+    lineSearch(HotBuslines_eb,"#07F");
+    lineSearch(HotBuslines_cdb,"#F70");
+
+	</script>
+	</div> 
+<div class="div-b">
+	<div class="div-c">
+		<table id="box-table-a" summary="Employee Pay Sheet">
+		    <thead>
+		    	<tr>
+		        	<th scope="col">Employee</th>
+		            <th scope="col">Salary</th>
+		            <th scope="col">Bonus</th>
+		            <th scope="col">Supervisor</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		    	<tr>
+		        	<td>Stephen C. Cox</td>
+		            <td>$300</td>
+		            <td>$50</td>
+		            <td>Bob</td>
+		        </tr>
+		        <tr>
+		        	<td>Josephin Tan</td>
+		            <td>$150</td>
+		            <td>-</td>
+		            <td>Annie</td>
+		        </tr>
+		        <tr>
+		        	<td>Joyce Ming</td>
+		            <td>$200</td>
+		            <td>$35</td>
+		            <td>Andy</td>
+		        </tr>
+		        <tr>
+		        	<td>James A. Pentel</td>
+		            <td>$175</td>
+		            <td>$25</td>
+		            <td>Annie</td>
+		        </tr>
+		    </tbody>
+		</table>
+        
+    </div>
+    
+	<div class="div-c">
+				<table id="box-table-a" summary="Employee Pay Sheet">
+		    <thead>
+		    	<tr>
+		        	<th scope="col">Employee</th>
+		            <th scope="col">Salary</th>
+		            <th scope="col">Bonus</th>
+		            <th scope="col">Supervisor</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		    	<tr>
+		        	<td>Stephen C. Cox</td>
+		            <td>$300</td>
+		            <td>$50</td>
+		            <td>Bob</td>
+		        </tr>
+		        <tr>
+		        	<td>Josephin Tan</td>
+		            <td>$150</td>
+		            <td>-</td>
+		            <td>Annie</td>
+		        </tr>
+		        <tr>
+		        	<td>Joyce Ming</td>
+		            <td>$200</td>
+		            <td>$35</td>
+		            <td>Andy</td>
+		        </tr>
+		        <tr>
+		        	<td>James A. Pentel</td>
+		            <td>$175</td>
+		            <td>$25</td>
+		            <td>Annie</td>
+		        </tr>
+		    </tbody>
+		</table>
+	</div>
+	<div class="div-c">
+	<canvas id="canvas1" height="100%" width="100%" style="width:100%; height: 100%;"></canvas>
+		<script src="js/Chart.js"></script>
+    <script>
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+        var lineChartData = {
+            labels : ["January","February","March","April","May","June","July"],
+            datasets : [
+                {
+                    label: "My First dataset",
+                    fillColor : "rgba(255,127,0,0.2)",
+                    strokeColor : "rgba(255,127,0,1)",
+                    pointColor : "rgba(255,127,0,1)",
+                    pointStrokeColor : "#fff",
+                    pointHighlightFill : "#fff",
+                    pointHighlightStroke : "rgba(255,127,0,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                },
+                {
+                    label: "My Second dataset",
+                    fillColor : "rgba(0,127,255,0.2)",
+                    strokeColor : "rgba(0,127,255,1)",
+                    pointColor : "rgba(0,127,255,1)",
+                    pointStrokeColor : "#fff",
+                    pointHighlightFill : "#fff",
+                    pointHighlightStroke : "rgba(0,127,255,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                }
+            ]
+
+        }
+
+    window.onload = function(){
+        var ctx1 = document.getElementById("canvas1").getContext("2d");
+		var ctx2 = document.getElementById("canvas2").getContext("2d")
+        window.myLine = new Chart(ctx1).Line(lineChartData, {
+            responsive: true
+        });
+		window.myBar = new Chart(ctx2).Bar(lineChartData,{
+			responsive: true
+		});
+    }
+    </script>
+	</div>
+	<div class="div-c">
+		<canvas id="canvas2" height="100%" width="100%" style="width:100%; height: 100%;"></canvas>
+	</div>
+</div> 
+</body>
+</html>
