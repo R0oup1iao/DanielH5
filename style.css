@@ -118,7 +118,7 @@ body
 .box-table-a td
 {
 	padding: 8px;
-	background: #e8edff; 
+	background: #e8edff;
 	border-bottom: 1px solid #fff;
 	color: #669;
 	border-top: 1px solid transparent;
@@ -154,7 +154,7 @@ body
 #box-table-b td
 {
 	padding: 8px;
-	background: #e8edff; 
+	background: #e8edff;
 	border-right: 1px solid #aabcfe;
 	border-left: 1px solid #aabcfe;
 	color: #669;
@@ -184,7 +184,7 @@ body
 }
 #hor-zebra .odd
 {
-	background: #e8edff; 
+	background: #e8edff;
 }
 
 
@@ -441,16 +441,16 @@ body
 }
 * html #background-image tbody td
 {
-	/* 
+	/*
 	   ----------------------------
-		PUT THIS ON IE6 ONLY STYLE 
+		PUT THIS ON IE6 ONLY STYLE
 		AS THE RULE INVALIDATES
 		YOUR STYLESHEET
 	   ----------------------------
 	*/
 	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='table-images/back.png',sizingMethod='crop');
 	background: none;
-}	
+}
 #background-image tbody tr:hover td
 {
 	color: #339;
@@ -479,7 +479,7 @@ body
 }
 #gradient-style td
 {
-	padding: 8px; 
+	padding: 8px;
 	border-bottom: 1px solid #fff;
 	color: #669;
 	border-top: 1px solid #fff;
@@ -522,7 +522,7 @@ body
 }
 #pattern-style-a td
 {
-	padding: 8px; 
+	padding: 8px;
 	border-bottom: 1px solid #fff;
 	color: #669;
 	border-top: 1px solid transparent;
@@ -558,7 +558,7 @@ body
 }
 #pattern-style-b td
 {
-	padding: 8px; 
+	padding: 8px;
 	border-bottom: 1px solid #fff;
 	color: #669;
 	border-top: 1px solid transparent;
@@ -567,4 +567,35 @@ body
 {
 	color: #339;
 	background: #cdcdee;
+}
+
+body {margin: 0;}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+
+ul.topnav li a.active {background-color: rgba(0,149,187,1.00);}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
 }
