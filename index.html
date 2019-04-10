@@ -156,36 +156,36 @@
 		<table class="box-table-a" id="tableA" summary="Employee Pay Sheet">
 		    <thead>
 		    	<tr>
-		        	<th scope="col">Employee</th>
-		            <th scope="col">Salary</th>
-		            <th scope="col">Bonus</th>
-		            <th scope="col">Supervisor</th>
+		        	<th scope="col">线路名称</th>
+		            <th scope="col">运营距离</th>
+		            <th scope="col">平均速度</th>
+		            <th scope="col">能耗效率</th>
 		        </tr>
 		    </thead>
 		    <tbody>
 		    	<tr>
-		        	<td id="tableAName1">Stephen C. Cox</td>
-		            <td>$300</td>
-		            <td>$50</td>
-		            <td>Bob</td>
+		        	<td id="tableAName1">专22</td>
+		            <td>0.457597</td>
+		            <td>9.004230769</td>
+		            <td>25.87854251</td>
 		        </tr>
 		        <tr>
-		        	<td  id="tableAName2">Josephin Tan</td>
-		            <td>$150</td>
-		            <td>-</td>
-		            <td>Annie</td>
+		        	<td  id="tableAName2">Y41</td>
+		            <td>0.475476</td>
+		            <td>10.48523333</td>
+		            <td>21.77020714</td>
 		        </tr>
 		        <tr>
-		        	<td  id="tableAName3">Joyce Ming</td>
-		            <td>$200</td>
-		            <td>$35</td>
-		            <td>Andy</td>
+		        	<td  id="tableAName3">专75</td>
+		            <td>0.409112</td>
+		            <td>6.891857143</td>
+		            <td>21.28172609</td>
 		        </tr>
 		        <tr>
-		        	<td  id="tableAName4">James A. Pentel</td>
-		            <td>$175</td>
-		            <td>$25</td>
-		            <td>Annie</td>
+		        	<td  id="tableAName4">特16</td>
+		            <td>0.778191</td>
+		            <td>11.73631429</td>
+		            <td>19.39341118</td>
 		        </tr>
 		    </tbody>
 		</table>
@@ -196,36 +196,36 @@
 				<table class="box-table-a" id="tableB" summary="Employee Pay Sheet">
 		    <thead>
 		    	<tr>
-		        	<th scope="col">Employee</th>
-		            <th scope="col">Salary</th>
-		            <th scope="col">Bonus</th>
-		            <th scope="col">Supervisor</th>
+                    <th scope="col">线路名称</th>
+                    <th scope="col">运营距离</th>
+                    <th scope="col">平均速度</th>
+                    <th scope="col">能耗效率</th>
 		        </tr>
 		    </thead>
 		    <tbody>
 		    	<tr>
-		        	<td id="tableBName1">Stephen C. Cox</td>
-		            <td>$300</td>
-		            <td>$50</td>
-		            <td>Bob</td>
+		        	<td id="tableBName1">专24</td>
+		            <td>0.573634</td>
+		            <td>5.514191667</td>
+		            <td>171.409</td>
 		        </tr>
 		        <tr>
-		        	<td id="tableBName2">Josephin Tan</td>
-		            <td>$150</td>
-		            <td>-</td>
-		            <td>Annie</td>
+		        	<td id="tableBName2">487</td>
+		            <td>0.322182</td>
+		            <td>5.44004</td>
+		            <td>118.689</td>
 		        </tr>
 		        <tr>
-		        	<td id="tableBName3">Joseph joestar</td>
-		            <td>$200</td>
-		            <td>$35</td>
-		            <td>Andy</td>
+		        	<td id="tableBName3">快速直达专线133</td>
+		            <td>0.636447</td>
+		            <td>7.112304348</td>
+		            <td>114.983</td>
 		        </tr>
 		        <tr>
-		        	<td id="tableBName4">James A. Pentel</td>
-		            <td>$175</td>
-		            <td>$25</td>
-		            <td>Annie</td>
+		        	<td id="tableBName4">434</td>
+		            <td>0.599796</td>
+		            <td>12.188</td>
+		            <td>101.38</td>
 		        </tr>
 		    </tbody>
 		</table>
@@ -236,7 +236,7 @@
     <script>
     var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
         var lineChartData = {
-            labels : ["January","February","March","April","May","June","July"],
+            labels : ["11/1","11/2","11/3","11/4","11/5","11/6","11/7"],
             datasets : [
                 {
                     label: "My First dataset",
@@ -246,7 +246,14 @@
                     pointStrokeColor : "#fff",
                     pointHighlightFill : "#fff",
                     pointHighlightStroke : "rgba(255,127,0,1)",
-                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                    data : [118.689,
+                        100.624,
+                        113.551,
+                        92.555,
+                        60.125,
+                        48.2635,
+                        35.7163,
+                    ]
                 },
                 {
                     label: "My Second dataset",
@@ -256,7 +263,14 @@
                     pointStrokeColor : "#fff",
                     pointHighlightFill : "#fff",
                     pointHighlightStroke : "rgba(0,127,255,1)",
-                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                    data : [18.79664706,
+                    20.75687692,
+                    15.19775,
+                    12.88130909,
+                    16.88821248,
+                    20.83123077,
+                    10.44141429
+                ]
                 }
             ]
 
