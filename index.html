@@ -22,6 +22,10 @@
 
         <script>
             var names = [];
+            var names_eb = [];
+            var names_cdb = [];
+            var tableANames = [];
+            var tableBNames = [];
             var cont = 0;
             var map = new AMap.Map('container', {
                 resizeEnable: true, //是否监控地图容器尺寸变化
@@ -81,8 +85,14 @@
                 pathArr = BusArr.path;
                 var name = BusArr.name.substring(0,BusArr.name.search(/[(]/));
                 window.names.push(name);
-                if(color==='#07F') pix='http://webapi.amap.com/theme/v1.3/markers/b/mark_b.png';
-                else pix = 'http://webapi.amap.com/theme/v1.3/markers/b/mark_r.png'
+                if(color==='#07F') {
+                    pix='http://webapi.amap.com/theme/v1.3/markers/b/mark_b.png';
+                    names_eb.push(name);
+                }
+                else {
+                    pix = 'http://webapi.amap.com/theme/v1.3/markers/b/mark_r.png';
+                    names_cdb.push(name);
+                }
                 for (var i = 0; i < stops.length; i++) {
                     new AMap.Marker({
                         map: map,
@@ -110,8 +120,29 @@
                 });
                 busPolyline.on('click',function(e){
                     var text = name;
-                    document.getElementById("box-table-a-name-"+String(window.cont%4+1)).innerText=text;
-                    cont+=1;
+                    if(names_eb.indexOf(name)>=0){
+                        tableANames = [];
+                        for(var i=0;i<4;i++){
+                            tableANames.push(document.getElementById("tableAName"+String(i+1)).innerText);
+                        }
+                        if(tableANames.indexOf(name)>=0);
+                        else{
+                            document.getElementById("tableAName" + String(window.cont % 4 + 1)).innerText = text;
+                            cont += 1;
+                        }
+                    }
+                    else{
+                        tableBNames = [];
+                        for(var i=0;i<4;i++){
+                            tableBNames.push(document.getElementById("tableBName"+String(i+1)).innerText);
+                        }
+                        if(tableBNames.indexOf(name)>=0);
+                        else{
+                            document.getElementById("tableBName" + String(window.cont % 4 + 1)).innerText = text;
+                            cont += 1;
+                        }
+                    }
+
                 })
                 map.setFitView();
             }
@@ -122,7 +153,7 @@
 	</div> 
 <div class="div-b">
 	<div class="div-c">
-		<table id="box-table-a" summary="Employee Pay Sheet">
+		<table class="box-table-a" id="tableA" summary="Employee Pay Sheet">
 		    <thead>
 		    	<tr>
 		        	<th scope="col">Employee</th>
@@ -133,25 +164,25 @@
 		    </thead>
 		    <tbody>
 		    	<tr>
-		        	<td id="box-table-a-name-1">Stephen C. Cox</td>
+		        	<td id="tableAName1">Stephen C. Cox</td>
 		            <td>$300</td>
 		            <td>$50</td>
 		            <td>Bob</td>
 		        </tr>
 		        <tr>
-		        	<td  id="box-table-a-name-2">Josephin Tan</td>
+		        	<td  id="tableAName2">Josephin Tan</td>
 		            <td>$150</td>
 		            <td>-</td>
 		            <td>Annie</td>
 		        </tr>
 		        <tr>
-		        	<td  id="box-table-a-name-3">Joyce Ming</td>
+		        	<td  id="tableAName3">Joyce Ming</td>
 		            <td>$200</td>
 		            <td>$35</td>
 		            <td>Andy</td>
 		        </tr>
 		        <tr>
-		        	<td  id="box-table-a-name-4">James A. Pentel</td>
+		        	<td  id="tableAName4">James A. Pentel</td>
 		            <td>$175</td>
 		            <td>$25</td>
 		            <td>Annie</td>
@@ -162,7 +193,7 @@
     </div>
     
 	<div class="div-c">
-				<table id="box-table-a" summary="Employee Pay Sheet">
+				<table class="box-table-a" id="tableB" summary="Employee Pay Sheet">
 		    <thead>
 		    	<tr>
 		        	<th scope="col">Employee</th>
@@ -173,25 +204,25 @@
 		    </thead>
 		    <tbody>
 		    	<tr>
-		        	<td>Stephen C. Cox</td>
+		        	<td id="tableBName1">Stephen C. Cox</td>
 		            <td>$300</td>
 		            <td>$50</td>
 		            <td>Bob</td>
 		        </tr>
 		        <tr>
-		        	<td>Josephin Tan</td>
+		        	<td id="tableBName2">Josephin Tan</td>
 		            <td>$150</td>
 		            <td>-</td>
 		            <td>Annie</td>
 		        </tr>
 		        <tr>
-		        	<td>Joseph joestar</td>
+		        	<td id="tableBName3">Joseph joestar</td>
 		            <td>$200</td>
 		            <td>$35</td>
 		            <td>Andy</td>
 		        </tr>
 		        <tr>
-		        	<td>James A. Pentel</td>
+		        	<td id="tableBName4">James A. Pentel</td>
 		            <td>$175</td>
 		            <td>$25</td>
 		            <td>Annie</td>

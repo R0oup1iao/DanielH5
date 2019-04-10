@@ -95,7 +95,7 @@ body
 }
 
 
-#box-table-a
+.box-table-a
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
@@ -105,7 +105,7 @@ body
 	margin: auto;
 	border-collapse: collapse;
 }
-#box-table-a th
+.box-table-a th
 {
 	font-size: 13px;
 	font-weight: normal;
@@ -115,7 +115,7 @@ body
 	border-bottom: 1px solid #fff;
 	color: #039;
 }
-#box-table-a td
+.box-table-a td
 {
 	padding: 8px;
 	background: #e8edff; 
@@ -123,7 +123,7 @@ body
 	color: #669;
 	border-top: 1px solid transparent;
 }
-#box-table-a tr:hover td
+.box-table-a tr:hover td
 {
 	background: #d0dafd;
 	color: #339;
