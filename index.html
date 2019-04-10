@@ -119,10 +119,17 @@
                     strokeWeight: 6//线宽
                 });
                 busPolyline.on('click',function(e){
+                    var info = [];
+                    info.push(name);
+
+                    infoWindow = new AMap.InfoWindow({
+                            content:info.join("")
+                        });
+                    infoWindow.open(map,[e.lnglat.getLng(),e.lnglat.getLat()]);
                     var text = name;
                     if(names_eb.indexOf(name)>=0){
                         tableANames = [];
-                        for(var i=0;i<4;i++){
+                        for(let i=0;i<4;i++){
                             tableANames.push(document.getElementById("tableAName"+String(i+1)).innerText);
                         }
                         if(tableANames.indexOf(name)>=0);
@@ -133,7 +140,7 @@
                     }
                     else{
                         tableBNames = [];
-                        for(var i=0;i<4;i++){
+                        for(let i=0;i<4;i++){
                             tableBNames.push(document.getElementById("tableBName"+String(i+1)).innerText);
                         }
                         if(tableBNames.indexOf(name)>=0);
@@ -143,7 +150,9 @@
                         }
                     }
 
-                })
+                });
+
+
                 map.setFitView();
             }
             lineSearch(HotBuslines_eb,"#07F");
