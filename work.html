@@ -4,29 +4,213 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <meta charset="UTF-8">
     <title>Working</title>
+    <style type="text/css">
+        <!--
+        @import url("style.css");
+        -->
+    </style>
+    <style>
+        .div-container {margin: 0 auto;height:900px;width:100%}
+        .div-a{ float:left;width:24%;height:900px;border:1px solid #777}
+        .div-b{ float:left;width:75.5%;height:900px;border:1px solid #777}
+        .div-c{ float:top;width:100%;height:50%;border:1px solid #777}
+        input { font-size: 14px; font-weight: bold; }
+        input[type=range]:before { content: attr(min); padding-right: 5px; }
+        input[type=range]:after { content: attr(max); padding-left: 5px;}
+        output {
+            display: block;
+            font-size: 5.5em;
+            font-weight: bold;
+        }
+		#ex1Slider .slider-selection {
+							background: #BABABA;
+						}
+    </style>
 </head>
 <body>
+<header>
+    <ul class="topnav">
+        <li style="width:100px"><a  href="index.html">主页</a></li>
+        <li style="width:100px"><a href="" class="active">计算</a></li>
+        <li style="width:100px"><a href="#contact">联系</a></li>
+        <li style="width:100px" class="right"><a href="#about">关于</a></li>
+    </ul>
+</header>
 <script>
     $(function(){
-        var x = $('[name=firstname]');
-        var out = $('#out');
+        var x = $('#year');
+        var out = x.next();
         out.text(x.val());
-        $('[type=submit]').click(function(){
+        x.change(function(){
             out.text(x.val());
-        })
-    });
+        });
+});
 
 </script>
-<div>
-    First name:<br>
-    <input type="text" name="firstname" value="Mickey">
-    <br>
-    Last name:<br>
-    <input type="text" name="lastname" value="Mouse">
-    <br><br>
-    <input type="submit" value="Submit">
-    <br><br>
-    <p id="out" style="color:#FFF;background-color:#ffd351">output</p>
+<div class="div-container">
+   <div class="div-a">
+       <div class="div-c">
+           <table class="box-table-a" id="tableA" summary="Employee Pay Sheet" style="font-size: large">
+               <tbody>
+               <tr>
+                   <td id="tableAName1">路线：</td>
+                   <td id="tableAform"><input type="text"><input type="submit" value="搜索" style="float:right"></td>
+               </tr>
+               <tr>
+                   <td>经营里程：</td>
+                   <td></td>
+               </tr>
+               <tr>
+                   <td>平均速度：</td>
+                   <td></td>
+               </tr>
+               <tr>
+                   <td>经营车辆数：</td>
+                   <td></td>
+               </tr>
+               <tr>
+                   <td>平均日载客：</td>
+                   <td></td>
+               </tr>
+               <tr>
+                   <td>七日平均能耗：</td>
+                   <td></td>
+               </tr>
+               </tbody>
+           </table>
+       </div>
+       <div style="border:solid #000 1px; height:49%">
+
+           <table class="box-table-a" id="tableB" summary="Employee Pay Sheet" style="font-size: large">
+               <thead>
+                   <tr>
+                       <th style="font-size: large">置换方案</th>
+                       <th></th>
+                   </tr>
+                   </thead>
+               <tbody>
+               <tr>
+                   <td >置换年限：</td>
+                   <td><input id="year" type="range" min="0" max="10" step="1" value="1"><span style="float:right"></span></td>
+               </tr>
+               <tr>
+                   <td>电气化比例：</td>
+                   <td><input type="range" value="70" min="0" max="100" step="1"><span style="float:right;margin-right:5px">70%</span></td>
+               </tr>
+               <tr>
+                   <td>置换预算：</td>
+                   <td><input type="number" min="0" step="100" value="100"></td>
+               </tr>
+               <tr>
+                   <td><button>置换开始</button></td>
+                   <td></td>
+               </tr>
+               </tbody>
+           </table>
+       </div>
+   </div>
+    <div id='container' class="div-b">
+        <script src="https://webapi.amap.com/maps?v=1.4.13&key=0c3296ca2d442e413396da735d21c36f&plugin=AMap.LineSearch"></script>
+        <script>
+            var map = new AMap.Map('container', {
+                resizeEnable: true, //是否监控地图容器尺寸变化
+                zoom:11, //初始化地图层级
+                center: [116.397428, 39.90923],//初始化地图中心点
+                mapStyle: 'amap://styles/whitesmoke'
+            });
+            var linesearch;
+
+            function lineSearch(HotBuslines,color) {
+
+                if(!HotBuslines) return;
+                //实例化公交线路查询类，只取回一条路线
+                if(!linesearch){
+                    linesearch = new AMap.LineSearch({
+                        pageIndex: 1,
+                        city: '北京',
+                        pageSize: 1,
+                        extensions: 'all'
+                    });
+                }
+                HotBuslines = String(HotBuslines);
+                linesearch.search(HotBuslines, function(status, result) {
+                    if (status === 'complete' && result.info === 'OK') {
+                        lineSearch_Callback_1(result,color);
+                    } else {
+                        console.log(result);
+                    }
+                });
+            }
+
+            function lineSearch_Callback_1(data,color) {
+                var lineArr = data.lineInfo;
+                var lineNum = data.lineInfo.length;
+                if (lineNum == 0) {
+                } else {
+                    for (var i = 0; i < lineNum; i++) {
+                        var pathArr = lineArr[i].path;
+                        var stops = lineArr[i].via_stops;
+                        var startPot = stops[0].location;
+                        var endPot = stops[stops.length - 1].location;
+                        // console.log(pathArr);
+                        drawbusLine_1(stops, lineArr[i],color);
+
+                    }
+                }
+            }
+            function drawbusLine_1(stops, BusArr,color) {
+                //绘制起点，终点
+                var pix;
+                pathArr = BusArr.path;
+                var name = BusArr.name.substring(0, BusArr.name.search(/[(]/));
+                if (color === '#07F') {
+                    pix = 'http://webapi.amap.com/theme/v1.3/markers/b/mark_b.png';
+                }
+                else {
+                    pix = 'http://webapi.amap.com/theme/v1.3/markers/b/mark_r.png';
+                }
+                for (var i = 0; i < stops.length; i++) {
+                    new AMap.Marker({
+                        map: map,
+                        position: stops[i].location, //基点位置
+                        icon: new AMap.Icon({
+
+                            image: pix,
+                            size: new AMap.Size(8, 8),
+                            imageSize: new AMap.Size(8, 8)
+                        }),
+                        offset: new AMap.Pixel(-4, -8),
+                        zIndex: 10
+                    });
+                }
+                //绘制乘车的路线
+                busPolyline = new AMap.Polyline({
+                    map: map,
+                    path: pathArr,
+                    strokeColor: color,//线颜色
+                    strokeOpacity: 0.7,//线透明度
+                    isOutline: true,
+                    outlineColor: 'white',
+                    strokeWeight: 6//线宽
+                });
+                busPolyline.on('click',function(e) {
+
+                    infoWindow = new AMap.InfoWindow({
+                        content: name
+                    });
+                    infoWindow.open(map,[e.lnglat.getLng(),e.lnglat.getLat()]);
+                });
+                map.setFitView();
+            }
+
+                var drawLine = $('#tableAform');
+                drawLine.find('[type=submit]').click(function(){
+                    var text = drawLine.find('[type=text]').val();
+                    lineSearch(text,"#07F")
+                });
+
+        </script>
+    </div>
 </div>
 </body>
 </html>
