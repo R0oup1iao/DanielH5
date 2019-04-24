@@ -38,11 +38,18 @@
 </header>
 <script>
     $(function(){
-        var x = $('#year');
-        var out = x.next();
-        out.text(x.val());
-        x.change(function(){
-            out.text(x.val());
+        var year = $('#year');
+        var yearOut = year.next();
+        yearOut.text(year.val());
+        year.change(function(){
+            yearOut.text(year.val());
+        });
+
+        var fraction = $('#fraction');
+        var fractionOut = fraction.next();
+        fractionOut.text(fraction.val());
+        fraction.change(function(){
+            fractionOut.text(fraction.val());
         });
 });
 
@@ -95,7 +102,7 @@
                </tr>
                <tr>
                    <td>电气化比例：</td>
-                   <td><input type="range" value="70" min="0" max="100" step="1"><span style="float:right;margin-right:5px">70%</span></td>
+                   <td><input id="fraction" type="range" value="70" min="0" max="100" step="1"><span style="float:right;margin-right:5px">70%</span></td>
                </tr>
                <tr>
                    <td>置换预算：</td>
